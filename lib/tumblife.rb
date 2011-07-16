@@ -1,5 +1,6 @@
 require 'oauth'
 require 'json'
+require 'hashie'
 require 'cgi'
 
 class Tumblife
@@ -69,6 +70,6 @@ class Tumblife
   end
 
   def parse_response(res)
-    JSON.parse(res.body)
+    Hashie::Mash.new(JSON.parse(res.body))
   end
 end
