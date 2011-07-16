@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "tumblife"
   s.version     = Tumblife::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["Kazuya Takeshima"]
+  s.email       = ["mail@mitukiii.jp"]
+  s.homepage    = "http://mitukiii.jp"
+  s.summary     = %q{Tumblife is a simple Tumblr API v2 library.}
+  s.description = %q{Tumblife is a simple Tumblr API v2 library.}
 
   s.rubyforge_project = "tumblife"
 
