@@ -30,7 +30,7 @@ Tumblife is a simple Tumblr API v2 library.
     info.response.blog.name # => mitukiii
     info.response.blog.url # => http://mitukiii.tumblr.com/
     
-    dashboard = tumblife.dashboard
+    dashboard = client.dashboard
     dashboard.response.posts.each do |post|
       # ... do something
     end
