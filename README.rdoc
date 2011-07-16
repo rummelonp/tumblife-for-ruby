@@ -2,6 +2,46 @@
 
 Tumblife is a simple Tumblr API v2 library.
 
+== Install
+
+    $ gem install tumblife
+
+== Example
+
+    require 'tumblife'
+    
+    consumer = OAuth::Consumer.new(
+      '*** consumer key ***',
+      '*** consumer secret ***',
+      {site: 'http://api.tumblr.com'}
+    )
+    access_token = OAuth::AccessToken.new(
+      consumer,
+      '*** oauth token ***',
+      '*** oauth token secret ***'
+    )
+    
+    client = Tumblife.new(access_token)
+    
+    avatar = client.avatar('mitukiii.tumblr.com')
+    avatar.response.avatar_url # => http://30.media.tumblr.com/avatar_3a8918dc3a7b_64.png
+    
+    info = client.info('mitukiii.tumblr.com')
+    info.response.blog.name # => mitukiii
+    info.response.blog.url # => http://mitukiii.tumblr.com/
+    
+    dashboard = tumblife.dashboard
+    dashboard.response.posts.each do |post|
+      # ... do something
+    end
+    
+
+== Requirements
+
+oauth
+json
+hashie
+
 == Copyright
 
 Copyright (C) 2011 Kazuya Takeshima
