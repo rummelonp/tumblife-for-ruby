@@ -31,6 +31,7 @@ class Tumblife
       following    /v2/user/following           oauth
       follow       /v2/user/follow              oauth   post
       unfollow     /v2/user/unfollow            oauth   post
+      info_user    /v2/user/info                oauth
     ".strip.split("\n").map {|l| l.strip.split(/\s+/)}
   end
 

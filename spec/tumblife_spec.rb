@@ -114,6 +114,11 @@ describe Tumblife do
       @client.should_receive(:post).with('/v2/user/unfollow', url: 'mitukiii.tumblr.com')
       @client.unfollow url: 'mitukiii.tumblr.com'
     end
+
+    it 'should respond to info_user' do
+      @client.should_receive(:get).with('/v2/user/info', {})
+      @client.info_user
+    end
   end
 
   context :helpers do
