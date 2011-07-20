@@ -4,6 +4,15 @@ require 'hashie'
 require 'cgi'
 
 class Tumblife
+  class APIError < StandardError
+    attr_reader :response
+
+    def initialize(msg, response = nil)
+      super(msg)
+      @response = response
+    end
+  end
+
   def initialize(access_token)
     @access_token = access_token
   end
@@ -71,6 +80,12 @@ class Tumblife
   end
 
   def parse_response(res)
-    Hashie::Mash.new(JSON.parse(res.body))
+    json = Hashie::Mash.new(JSON.parse(res.body))
+    case json.meta.status.to_i
+    when 400...600
+      raise APIError.new(json.meta.msg, res)
+    else
+      json
+    end
   end
 end

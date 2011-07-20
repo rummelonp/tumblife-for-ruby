@@ -119,6 +119,38 @@ describe Tumblife do
       @client.should_receive(:get).with('/v2/user/info', {})
       @client.info_user
     end
+
+    context :error do
+      def create_response(status, msg)
+        Hashie::Mash.new({
+          body: {
+            meta: {
+              status: status,
+              msg: msg
+            },
+            response: {}
+          }.to_json
+        })
+      end
+
+      it 'should raise APIError' do
+        lambda {
+          @client.parse_response(create_response(200, 'OK'))
+        }.should_not raise_error(Tumblife::APIError)
+
+        lambda {
+          @client.parse_response(create_response(301, 'Found'))
+        }.should_not raise_error(Tumblife::APIError)
+
+        lambda {
+          @client.parse_response(create_response(401, 'Not Authorized'))
+        }.should raise_error(Tumblife::APIError)
+
+        lambda {
+          @client.parse_response(create_response(404, 'Not Found'))
+        }.should raise_error(Tumblife::APIError)
+      end
+    end
   end
 
   context :helpers do
