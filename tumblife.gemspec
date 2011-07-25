@@ -13,6 +13,9 @@ Gem::Specification.new do |s|
   s.description = %q{Tumblife is a simple Tumblr API v2 library.}
 
   s.rubyforge_project = "tumblife"
+  s.add_dependency("oauth")
+  s.add_dependency("json")
+  s.add_dependency("hashie")
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
