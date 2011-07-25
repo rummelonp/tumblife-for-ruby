@@ -24,23 +24,23 @@ Tumblife is a simple Tumblr API v2 library.
     client = Tumblife.new(access_token)
     
     avatar = client.avatar('mitukiii.tumblr.com')
-    avatar.response.avatar_url # => http://30.media.tumblr.com/avatar_3a8918dc3a7b_64.png
+    avatar.avatar_url # => http://30.media.tumblr.com/avatar_3a8918dc3a7b_64.png
     
     info = client.info('mitukiii.tumblr.com')
-    info.response.blog.name # => mitukiii
-    info.response.blog.url # => http://mitukiii.tumblr.com/
+    info.blog.name # => mitukiii
+    info.blog.url # => http://mitukiii.tumblr.com/
     
     dashboard = client.dashboard
-    dashboard.response.posts.each do |post|
+    dashboard.posts.each do |post|
       # ... do something
     end
     
 
 == Requirements
 
-oauth
-json
-hashie
+    oauth
+    json
+    hashie
 
 == Copyright
 
