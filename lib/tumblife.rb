@@ -85,7 +85,7 @@ class Tumblife
     when 400...600
       raise APIError.new(json.meta.msg, res)
     else
-      json
+      json.response
     end
   end
 end
