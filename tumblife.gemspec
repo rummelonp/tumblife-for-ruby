@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "tumblife"
   s.add_dependency("oauth")
-  s.add_dependency("json")
+  s.add_dependency("json") if RUBY_VERSION < '1.9'
   s.add_dependency("hashie")
 
   s.files         = `git ls-files`.split("\n")

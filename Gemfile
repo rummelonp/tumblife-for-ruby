@@ -4,7 +4,7 @@ source "http://rubygems.org"
 gemspec
 
 gem "oauth"
-gem "json"
+gem "json" if RUBY_VERSION < '1.9'
 gem "hashie"
 
 group :development do
