@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
 module Tumblife
-  VERSION = "0.3.1"
+  VERSION = "1.0.0"
 end
