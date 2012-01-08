@@ -5,12 +5,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Tumblife::API do
   def create_response(status, msg)
     Hashie::Mash.new({
-      body: {
-        meta: {
-          status: status,
-          msg: msg
+      :body => {
+        :meta => {
+          :status => status,
+          :msg => msg
         },
-        response: {}
+        :response => {}
       }.to_json
     })
   end
@@ -27,13 +27,13 @@ describe Tumblife::API do
     it 'should get' do
       @api.should_receive(:access_token).and_return(@token)
       @token.should_receive(:get).with('/path/to?key1=param1&key2=param2', @api.header).and_return(create_response(200, 'OK'))
-      @api.get('/path/to', key1: 'param1', key2: 'param2')
+      @api.get('/path/to', :key1 => 'param1', :key2 => 'param2')
     end
 
     it 'should post' do
       @api.should_receive(:access_token).and_return(@token)
       @token.should_receive(:post).with('/path/to', {'key1' => 'param1', 'key2' => 'param2'}, @api.header).and_return(create_response(200, 'OK'))
-      @api.post('/path/to', key1: 'param1', key2: 'param2')
+      @api.post('/path/to', :key1 => 'param1', :key2 => 'param2')
     end
   end
 
