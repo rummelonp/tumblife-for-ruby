@@ -56,18 +56,4 @@ describe Tumblife::API do
       }.should raise_error(Tumblife::APIError)
     end
   end
-
-  context :helpers do
-    before do
-      @params = {name: 'mitukiii', age: 23}
-    end
-
-    it 'should convert query string from Hash' do
-      @api.parse_params(@params).should == 'name=mitukiii&age=23'
-    end
-
-    it 'should stringify keys from Hash' do
-      @api.stringify_params(@params).should == {'name' => 'mitukiii', 'age' => '23'}
-    end
-  end
 end

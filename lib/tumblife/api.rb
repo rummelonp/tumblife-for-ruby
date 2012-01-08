@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+require 'active_support/core_ext/object/to_query'
+require 'active_support/core_ext/hash/keys'
+
 module Tumblife
   class API
     # @private
@@ -15,13 +18,13 @@ module Tumblife
 
     # Perform an HTTP GET request
     def get(path, params = {})
-      response = access_token.get(path + '?' + parse_params(params), header)
+      response = access_token.get(path + '?' + params.to_param, header)
       parse_response(response)
     end
 
     # Perform an HTTP POST request
     def post(path, params = {})
-      response = access_token.post(path, stringify_params(params), header)
+      response = access_token.post(path, params.stringify_keys, header)
       parse_response(response)
     end
 
@@ -35,17 +38,6 @@ module Tumblife
     # Create a new access token
     def access_token
       OAuth::AccessToken.new(consumer, oauth_token, oauth_token_secret)
-    end
-
-    def parse_params(params = {})
-      params.map {|k, v| k.to_s + '=' + CGI.escape(v.to_s)}.join('&')
-    end
-
-    def stringify_params(params = {})
-      params.inject({}) do |h, (k, v)|
-        h[k.to_s] = v.to_s
-        h
-      end
     end
 
     def header
