@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Kazuya Takeshima"]
   s.email       = ["mail@mitukiii.jp"]
-  s.homepage    = "http://mitukiii.jp"
+  s.homepage    = "https://github.com/mitukiii/tumblife-for-ruby"
   s.summary     = %q{Tumblife is a simple Tumblr API v2 library.}
   s.description = %q{Tumblife is a simple Tumblr API v2 library.}
 
