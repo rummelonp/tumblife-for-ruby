@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+require 'oauth'
+require 'json'
+require 'hashie'
+
 require 'active_support/core_ext/object/to_query'
 require 'active_support/core_ext/hash/keys'
 
