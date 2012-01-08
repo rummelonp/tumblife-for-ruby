@@ -9,19 +9,15 @@ Tumblife is a simple Tumblr API v2 library.
 == Example
 
     require 'tumblife'
+
+    Tumblife.configure do |config|
+      config.consumer_key = '*** consumer key ***',
+      config.consumer_secret = '*** consumer secret ***',
+      config.oauth_token = '*** oauth token ***',
+      config.oauth_token_secret = '*** oauth token secret ***'
+    end
     
-    consumer = OAuth::Consumer.new(
-      '*** consumer key ***',
-      '*** consumer secret ***',
-      {site: 'http://api.tumblr.com'}
-    )
-    access_token = OAuth::AccessToken.new(
-      consumer,
-      '*** oauth token ***',
-      '*** oauth token secret ***'
-    )
-    
-    client = Tumblife.new(access_token)
+    client = Tumblife.client
     
     avatar = client.avatar('mitukiii.tumblr.com')
     avatar.avatar_url # => http://30.media.tumblr.com/avatar_3a8918dc3a7b_64.png
@@ -41,6 +37,7 @@ Tumblife is a simple Tumblr API v2 library.
     oauth
     json
     hashie
+    activesupport
 
 == Copyright
 
