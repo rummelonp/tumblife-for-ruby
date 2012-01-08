@@ -3,9 +3,13 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe Tumblife do
   before do
     @api_key = 'consumer key'
-    @consumer = OAuth::Consumer.new(@api_key, 'consumer secret', site: 'http://api.tumblr.com')
-    @access_token = OAuth::AccessToken.new(@consumer, 'oauth token', 'oauth token secret')
-    @client = Tumblife.new(@access_token)
+    Tumblife.configure do |config|
+      config.consumer_key = @api_key
+      config.consumer_secret = 'consumer secret'
+      config.oauth_token = 'oauth token'
+      config.oauth_token_secret = 'oauth token secret'
+    end
+    @client = Tumblife.client
   end
 
   context :api do
