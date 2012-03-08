@@ -2,7 +2,6 @@
 
 require 'oauth'
 require 'json'
-require 'hashie'
 require 'cgi'
 
 module Tumblife
