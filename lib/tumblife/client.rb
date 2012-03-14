@@ -6,7 +6,7 @@ require 'hashie'
 require 'cgi'
 
 module Tumblife
-  # Wrapper for the TINAMI REST API
+  # Wrapper for the Tumblr REST API
   class Client < API
     # method name, path for API,         authentication, http method
     "
