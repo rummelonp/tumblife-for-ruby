@@ -4,15 +4,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Tumblife::API do
   def create_response(status, msg)
-    Hashie::Mash.new({
-      :body => {
-        :meta => {
-          :status => status,
-          :msg => msg
-        },
-        :response => {}
-      }.to_json
-    })
+    mock_response = double("response")
+    mock_response.stub(:body).and_return({
+      'meta' => {
+        'status' => status,
+        'msg' => msg
+      },
+      'response' => {}
+    }.to_json)
+    return mock_response
   end
 
   before do

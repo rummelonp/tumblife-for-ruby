@@ -2,7 +2,6 @@
 
 require 'oauth'
 require 'json'
-require 'hashie'
 
 require 'active_support/core_ext/object/to_query'
 require 'active_support/core_ext/hash/keys'
@@ -49,12 +48,12 @@ module Tumblife
     end
 
     def parse_response(res)
-      json = Hashie::Mash.new(JSON.parse(res.body))
-      case json.meta.status.to_i
+      json = JSON.parse(res.body)
+      case json['meta']['status'].to_i
       when 400...600
-        raise APIError.new(json.meta.msg, res)
+        raise APIError.new(json['meta']['msg'], res)
       else
-        json.response
+        json['response']
       end
     end
   end
