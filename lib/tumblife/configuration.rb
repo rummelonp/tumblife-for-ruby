@@ -28,7 +28,7 @@ module Tumblife
     # The endpoint that will be used to connect if none is set
     #
     # @note There is no reason to use any other endpoint at this time
-    DEFAULT_ENDPOINT = 'http://api.tumblr.com/'.freeze
+    DEFAULT_ENDPOINT = 'http://api.tumblr.com'.freeze
 
     # The user agent that will be sent to the API endpoint if none is set
     DEFAULT_USER_AGENT = "Tumblife/#{VERSION} (http://github.com/mitukiii/tumblife-for-ruby)".freeze
