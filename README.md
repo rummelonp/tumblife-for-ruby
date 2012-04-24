@@ -1,12 +1,12 @@
-= Tumblife
+# Tumblife
 
 Tumblife is a simple Tumblr API v2 library.
 
-== Install
+## Install
 
     $ gem install tumblife
 
-== Example
+## Example
 
     require 'tumblife'
 
@@ -32,14 +32,14 @@ Tumblife is a simple Tumblr API v2 library.
     end
     
 
-== Requirements
+## Requirement
 
     oauth
     json
     hashie
     activesupport
 
-== Copyright
+## Copyright
 
 Released under the MIT license: http://www.opensource.org/licenses/MIT
 
