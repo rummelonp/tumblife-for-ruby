@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 require 'faraday_middleware'
+require 'tumblife/response'
 
 module Tumblife
   module Connection
@@ -19,6 +20,8 @@ module Tumblife
       }
 
       Faraday.new(options) do |connection|
+        connection.response :raise_server_error
+        connection.response :raise_client_error
         connection.response :mashify
         connection.response :json
         connection.request :oauth, credentials
