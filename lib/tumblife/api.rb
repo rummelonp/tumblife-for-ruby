@@ -43,7 +43,14 @@ module Tumblife
     # @private
     def connection
       options = {
-        :headers => {'User-Agent' => user_agent},
+        :headers => {
+          :accept => 'application/json',
+          :user_agent => user_agent
+        },
+        :proxy => proxy,
+        :ssl => {
+          :verify => false
+        },
         :url => endpoint
       }
 
@@ -51,7 +58,7 @@ module Tumblife
         connection.response :mashify
         connection.response :json
         connection.request :oauth, credentials
-        connection.adapter :net_http
+        connection.adapter adapter
       end
     end
 

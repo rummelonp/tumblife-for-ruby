@@ -1,17 +1,26 @@
 # -*- coding: utf-8 -*-
 
+require 'faraday'
+
 module Tumblife
   # Defines constants and methods related to configuration
   module Configuration
     # An array of keys in the options hash when configuring a {Tumblife::API}
     VALID_OPTIONS_KEYS = [
+      :adapter,
       :consumer_key,
       :consumer_secret,
       :oauth_token,
       :oauth_token_secret,
       :endpoint,
+      :proxy,
       :user_agent,
     ].freeze
+
+    # The adapter that will be used to connect if none is set
+    #
+    # @note The default faraday adapter is Net::HTTP.
+    DEFAULT_ADAPTER            = Faraday.default_adapter
 
     # By default, don't set a consumer key
     DEFAULT_CONSUMER_KEY       = nil
@@ -29,6 +38,9 @@ module Tumblife
     #
     # @note There is no reason to use any other endpoint at this time
     DEFAULT_ENDPOINT = 'http://api.tumblr.com'.freeze
+
+    # By default, don't use a proxy server
+    DEFAULT_PROXY = nil
 
     # The user agent that will be sent to the API endpoint if none is set
     DEFAULT_USER_AGENT = "Tumblife/#{VERSION} (http://github.com/mitukiii/tumblife-for-ruby)".freeze
@@ -56,11 +68,13 @@ module Tumblife
 
     # Reset all configuration options to defaults
     def reset
+      self.adapter            = DEFAULT_ADAPTER
       self.consumer_key       = DEFAULT_CONSUMER_KEY
       self.consumer_secret    = DEFAULT_CONSUMER_SECRET
       self.oauth_token        = DEFAULT_OAUTH_TOKEN
       self.oauth_token_secret = DEFAULT_OAUTH_TOKEN_SECRET
       self.endpoint           = DEFAULT_ENDPOINT
+      self.proxy              = DEFAULT_PROXY
       self.user_agent         = DEFAULT_USER_AGENT
       self
     end
