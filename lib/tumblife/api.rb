@@ -5,12 +5,12 @@ require 'faraday_middleware'
 module Tumblife
   class API
     # @private
-    attr_accessor *Configuration::OPTIONS_KEYS
+    attr_accessor *Configuration::VALID_OPTIONS_KEYS
 
     # Creates a new API
     def initialize(options = {})
       options = Tumblife.options.merge(options)
-      Configuration::OPTIONS_KEYS.each do |key|
+      Configuration::VALID_OPTIONS_KEYS.each do |key|
         send("#{key}=", options[key])
       end
     end

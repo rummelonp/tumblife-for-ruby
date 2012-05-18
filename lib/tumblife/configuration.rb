@@ -4,7 +4,7 @@ module Tumblife
   # Defines constants and methods related to configuration
   module Configuration
     # An array of keys in the options hash when configuring a {Tumblife::API}
-    OPTIONS_KEYS = [
+    VALID_OPTIONS_KEYS = [
       :consumer_key,
       :consumer_secret,
       :oauth_token,
@@ -34,7 +34,7 @@ module Tumblife
     DEFAULT_USER_AGENT = "Tumblife/#{VERSION} (http://github.com/mitukiii/tumblife-for-ruby)".freeze
 
     # @private
-    attr_accessor *OPTIONS_KEYS
+    attr_accessor *VALID_OPTIONS_KEYS
 
     # When this module is extended, set all configuration options to their default values
     def self.extended(base)
@@ -49,7 +49,7 @@ module Tumblife
 
     # Create a hash of options and their values
     def options
-      OPTIONS_KEYS.inject({}) do |options, key|
+      VALID_OPTIONS_KEYS.inject({}) do |options, key|
         options.merge!(key => send(key))
       end
     end

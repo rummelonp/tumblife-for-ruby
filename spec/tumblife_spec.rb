@@ -38,7 +38,7 @@ describe Tumblife do
   end
 
   describe :configure do
-    Tumblife::Configuration::OPTIONS_KEYS.each do |key|
+    Tumblife::Configuration::VALID_OPTIONS_KEYS.each do |key|
       it "should set the #{key}" do
         Tumblife.configure do |config|
           config.send("#{key}=", key)
