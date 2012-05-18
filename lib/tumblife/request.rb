@@ -24,7 +24,7 @@ module Tumblife
         end
       end
 
-      response.body
+      response.body['response']
     end
   end
 end
