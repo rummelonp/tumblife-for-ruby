@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("json", "~> 1.7.3") if RUBY_VERSION < "1.9"
   s.add_runtime_dependency("hashie", "~> 1.2.0")
   s.add_development_dependency("rspec", "~> 2.10.0")
+  s.add_development_dependency("simplecov", "~> 0.6.4")
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
