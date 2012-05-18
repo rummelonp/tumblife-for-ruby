@@ -2,12 +2,26 @@
 
 module Tumblife
   # Custom error class for rescuing from all Tumblr errors
-  class APIError < StandardError
-    attr_reader :response
+  class Error < StandardError
+  end
 
-    def initialize(msg, response = nil)
-      super(msg)
-      @response = response
-    end
+  # Raised when Tumblr returns the HTTP status code 4xx
+  class BadRequest < Error
+  end
+
+  # Raised when Tumblr returns the HTTP status code 401
+  class NotAuthorized < Error
+  end
+
+  # Raised when Tumblr returns the HTTP status code 404
+  class NotFound < Error
+  end
+
+  # Raised when Instagram returns the HTTP status code 5xx
+  class InternalServerError < Error
+  end
+
+  # Raised when Instagram returns the HTTP status code 503
+  class ServiceUnavailable < Error
   end
 end
