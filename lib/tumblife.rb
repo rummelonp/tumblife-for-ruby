@@ -3,7 +3,6 @@
 require 'tumblife/version'
 require 'tumblife/error'
 require 'tumblife/configuration'
-require 'tumblife/api'
 require 'tumblife/client'
 
 module Tumblife

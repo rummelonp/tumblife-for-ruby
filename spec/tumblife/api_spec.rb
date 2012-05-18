@@ -2,7 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Tumblife::API do
+describe 'Tumblife::API' do
   def create_response(status, msg)
     Hashie::Mash.new({
       :body => {
@@ -16,7 +16,7 @@ describe Tumblife::API do
   end
 
   before do
-    @api = Tumblife::API.new
+    @api = Tumblife::Client.new
   end
 
   context :request do
