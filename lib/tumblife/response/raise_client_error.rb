@@ -30,7 +30,9 @@ module Tumblife
       end
 
       def error_body(body)
-        if body['meta'] && body['meta']['msg']
+        if body.nil?
+          nil
+        elsif body['meta'] && body['meta']['msg']
           body['meta']['msg']
         end
       end
