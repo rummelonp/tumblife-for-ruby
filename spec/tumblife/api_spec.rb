@@ -21,24 +21,23 @@ describe Tumblife::API do
 
   context :request do
     before do
-      @token = @api.access_token
     end
 
     it 'should get' do
-      @api.should_receive(:access_token).and_return(@token)
-      @token.should_receive(:get).with('/path/to?key1=param1&key2=param2', @api.header).and_return(create_response(200, 'OK'))
+      @api.should_receive(:request).with(:get, '/path/to', {:key1 => 'param1', :key2 => 'param2'}).and_return(create_response(200, 'OK'))
       @api.get('/path/to', :key1 => 'param1', :key2 => 'param2')
     end
 
     it 'should post' do
-      @api.should_receive(:access_token).and_return(@token)
-      @token.should_receive(:post).with('/path/to', {'key1' => 'param1', 'key2' => 'param2'}, @api.header).and_return(create_response(200, 'OK'))
+      @api.should_receive(:request).with(:post, '/path/to', {:key1 => 'param1', :key2 => 'param2'}).and_return(create_response(200, 'OK'))
       @api.post('/path/to', :key1 => 'param1', :key2 => 'param2')
     end
   end
 
   context :error do
     it 'should raise APIError' do
+      pending
+
       lambda {
         @api.parse_response(create_response(200, 'OK'))
       }.should_not raise_error(Tumblife::APIError)

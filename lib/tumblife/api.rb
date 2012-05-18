@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'oauth'
-require 'json'
-require 'hashie'
-
-require 'active_support/core_ext/object/to_query'
-require 'active_support/core_ext/hash/keys'
+require 'faraday_middleware'
 
 module Tumblife
   class API
@@ -22,40 +17,52 @@ module Tumblife
 
     # Perform an HTTP GET request
     def get(path, params = {})
-      response = access_token.get(path + '?' + params.to_param, header)
-      parse_response(response)
+      request(:get, path, params)
     end
 
     # Perform an HTTP POST request
     def post(path, params = {})
-      response = access_token.post(path, params.stringify_keys, header)
-      parse_response(response)
+      request(:post, path, params)
     end
 
-    alias_method :api_key, :consumer_key
-
-    # Create a new consumer
-    def consumer
-      OAuth::Consumer.new(consumer_key, consumer_secret, :site => endpoint)
-    end
-
-    # Create a new access token
-    def access_token
-      OAuth::AccessToken.new(consumer, oauth_token, oauth_token_secret)
-    end
-
-    def header
-      {'User-Agent' => user_agent}
-    end
-
-    def parse_response(res)
-      json = Hashie::Mash.new(JSON.parse(res.body))
-      case json.meta.status.to_i
-      when 400...600
-        raise APIError.new(json.meta.msg, res)
-      else
-        json.response
+    # Perform an HTTP request
+    def request(http_method, path, params = {})
+      response = connection.send(http_method) do |request|
+        case http_method
+        when :get, :delete
+          request.url(path, params)
+        when :post, :put
+          request.path = path
+          request.body = params unless params.empty?
+        end
       end
+
+      response.body
+    end
+
+    # @private
+    def connection
+      options = {
+        :headers => {'User-Agent' => user_agent},
+        :url => endpoint
+      }
+
+      Faraday.new(options) do |connection|
+        connection.response :mashify
+        connection.response :json
+        connection.request :oauth, credentials
+        connection.adapter :net_http
+      end
+    end
+
+    private
+    def credentials
+      {
+        :consumer_key    => consumer_key,
+        :consumer_secret => consumer_secret,
+        :token           => oauth_token,
+        :token_secret    => oauth_token_secret
+      }
     end
   end
 end

@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'oauth'
-require 'json'
-require 'hashie'
-require 'cgi'
-
 module Tumblife
   # Wrapper for the Tumblr REST API
   class Client < API
@@ -33,7 +28,7 @@ module Tumblife
       if /%s/ =~ path
         define_method method_name do |*args|
           params = args.last.kind_of?(Hash) ? args.pop : {}
-          params[:api_key] = api_key if auth == 'api_key'
+          params[:api_key] = consumer_key if auth == 'api_key'
           send http_method, path % args, params
         end
       else
