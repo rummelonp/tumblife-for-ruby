@@ -1,14 +1,29 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'rspec'
+# -*- coding: utf-8 -*-
+
+require 'simplecov'
+
+SimpleCov.start do
+  add_filter 'spec'
+end
+
 require 'tumblife'
 require 'json'
 require 'hashie'
+require 'rspec'
+require 'webmock/rspec'
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+def a_get(path, endpoint = Tumblife.endpoint)
+  a_request(:get, endpoint + path)
+end
 
-RSpec.configure do |config|
+def a_post(path, endpoint = Tumblife.endpoint)
+  a_request(:post, endpoint + path)
+end
 
+def stub_get(path, endpoint = Tumblife.endpoint)
+  stub_request(:get, endpoint + path)
+end
+
+def stub_post(path, endpoint = Tumblife.endpoint)
+  stub_request(:post, endpoint + path)
 end
