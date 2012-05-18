@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe 'Tumblife::API' do
   def create_response(status, msg)
