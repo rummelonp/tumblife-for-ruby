@@ -20,7 +20,7 @@ Tumblife is a simple Tumblr API v2 library.
     client = Tumblife.client
     
     avatar = client.avatar('mitukiii.tumblr.com')
-    avatar.avatar_url # => http://30.media.tumblr.com/avatar_3a8918dc3a7b_64.png
+    avatar.avatar_url # => http://24.media.tumblr.com/avatar_87fdfd3ea0e3_64.png
     
     info = client.info('mitukiii.tumblr.com')
     info.blog.name # => mitukiii
@@ -34,10 +34,11 @@ Tumblife is a simple Tumblr API v2 library.
 
 ## Requirement
 
-    oauth
+    faraday
+    faraday_middleware
+    simple_oauth
     json
     hashie
-    activesupport
 
 ## Copyright
 
