@@ -1,49 +1,50 @@
 # Tumblife [![Build Status](https://secure.travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
-
 [travis]: http://travis-ci.org/mitukiii/tumblife-for-buy
 [gemnasium]: https://gemnasium.com/mitukiii/tumblife-for-ruby
 
-Tumblife is a simple Tumblr API v2 library.
+A Ruby wrapper for the Tumblr API v2.
 
-## Install
+## Installation
+    gem install tumblife
 
-    $ gem install tumblife
+## Usage
+```ruby
+require 'tumblife'
 
-## Example
-
-    require 'tumblife'
-
-    Tumblife.configure do |config|
-      config.consumer_key = '*** consumer key ***',
-      config.consumer_secret = '*** consumer secret ***',
-      config.oauth_token = '*** oauth token ***',
-      config.oauth_token_secret = '*** oauth token secret ***'
-    end
+Tumblife.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
     
-    client = Tumblife.client
+client = Tumblife.client
     
-    avatar = client.avatar('mitukiii.tumblr.com')
-    avatar.avatar_url # => http://24.media.tumblr.com/avatar_87fdfd3ea0e3_64.png
+avatar = client.avatar('mitukiii.tumblr.com')
+avatar.avatar_url # => http://24.media.tumblr.com/avatar_87fdfd3ea0e3_64.png
     
-    info = client.info('mitukiii.tumblr.com')
-    info.blog.name # => mitukiii
-    info.blog.url # => http://mitukiii.tumblr.com/
+info = client.info('mitukiii.tumblr.com')
+info.blog.name # => mitukiii
+info.blog.url # => http://mitukiii.tumblr.com/
     
-    dashboard = client.dashboard
-    dashboard.posts.each do |post|
-      # ... do something
-    end
-    
+dashboard = client.dashboard
+dashboard.posts.each do |post|
+  # ... do something
+end
+```
 
-## Requirement
+## TODO
+* better post support
+* better test
 
-    faraday
-    faraday_middleware
-    simple_oauth
-    json
-    hashie
+## Contributing
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 ## Copyright
+Copyright (c) 2011 [Kazuya Takeshima](mailto:mail@mitukiii.jp). See [LICENSE][] for details.
 
-Released under the MIT license: http://www.opensource.org/licenses/MIT
-
+[license]: https://github.com/mitukiii/tumblife-for-ruby/blob/master/LICENSE.md

@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Kazuya Takeshima']
   s.email       = ['mail@mitukiii.jp']
   s.homepage    = 'https://github.com/mitukiii/tumblife-for-ruby'
-  s.summary     = %q{Tumblife is a simple Tumblr API v2 library.}
-  s.description = %q{Tumblife is a simple Tumblr API v2 library.}
+  s.summary     = %q{A Ruby wrapper for the Tumblr API v2.}
+  s.description = %q{A Ruby wrapper for the Tumblr API v2.}
 
   s.rubyforge_project = 'tumblife'
   s.add_runtime_dependency 'faraday', '~> 0.8.0'
