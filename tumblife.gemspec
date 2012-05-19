@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("simple_oauth", "~> 0.1.8")
   s.add_runtime_dependency("json", "~> 1.7.3") if RUBY_VERSION < "1.9"
   s.add_runtime_dependency("hashie", "~> 1.2.0")
+  s.add_development_dependency("rake", "~> 0.9.2.2")
   s.add_development_dependency("rspec", "~> 2.10.0")
   s.add_development_dependency("webmock", "~> 1.8.7")
   s.add_development_dependency("simplecov", "~> 0.6.4")
