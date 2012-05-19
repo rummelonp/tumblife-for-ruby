@@ -16,8 +16,8 @@ describe Faraday::Response do
   }.each do |status, exception|
     context "when HTTP status is #{status}" do
       before do
-        stub_get('/v2/user/dashboard')
-          .to_return(:status => status, :body => '{"meta":{"msg":"test"}}')
+        stub_get('/v2/user/dashboard').
+          to_return(:status => status, :body => '{"meta":{"msg":"test"}}')
       end
 
       it "should raise #{exception.name} error" do
