@@ -8,8 +8,6 @@ unless ENV['CI']
 end
 
 require 'tumblife'
-require 'json'
-require 'hashie'
 require 'rspec'
 require 'webmock/rspec'
 
