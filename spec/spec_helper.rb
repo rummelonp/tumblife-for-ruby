@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-require 'simplecov'
-
-SimpleCov.start do
-  add_filter 'spec'
+unless ENV['CI']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter 'spec'
+  end
 end
 
 require 'tumblife'
