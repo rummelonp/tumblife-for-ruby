@@ -1,4 +1,7 @@
-# Tumblife [![Build Status](https://secure.travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)](http://travis-ci.org/mitukiii/tumblife-for-ruby)
+# Tumblife [![Build Status](https://secure.travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
+
+[travis]: http://travis-ci.org/mitukiii/tumblife-for-buy
+[gemnasium]: https://gemnasium.com/mitukiii/tumblife-for-ruby
 
 Tumblife is a simple Tumblr API v2 library.
 
