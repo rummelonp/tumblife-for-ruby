@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "status": 200,
+    "msg": "OK"
+  },
+  "response": {
+    "liked_posts": [
+
+    ],
+    "liked_count": 0
+  }
+}
