@@ -11,6 +11,14 @@ module Tumblife
         get("/v2/user/likes", options)
       end
 
+      def like(options = {})
+        post("/v2/user/like", options)
+      end
+
+      def unlike(options = {})
+        post("/v2/user/unlike", options)
+      end
+
       def following(options = {})
         get("/v2/user/following", options)
       end

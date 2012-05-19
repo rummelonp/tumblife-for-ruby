@@ -19,6 +19,16 @@ describe Tumblife::Client do
     client.likes :limit => 10
   end
 
+  it 'should respond to like' do
+    client.should_receive(:post).with('/v2/user/like', :id => 123456789, :reblog_key => 'abcdefg')
+    client.like :id => 123456789, :reblog_key => 'abcdefg'
+  end
+
+  it 'should respond to unlike' do
+    client.should_receive(:post).with('/v2/user/unlike', :id => 123456789, :reblog_key => 'abcdefg')
+    client.unlike :id => 123456789, :reblog_key => 'abcdefg'
+  end
+
   it 'should respond to following' do
     client.should_receive(:get).with('/v2/user/following', {})
     client.following
