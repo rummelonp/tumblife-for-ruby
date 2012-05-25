@@ -7,6 +7,23 @@ describe Tumblife do
     Tumblife.reset
   end
 
+  context 'when delegating to a client' do
+    before do
+      stub_get('/v2/user/info').
+        to_return(:body => fixture('info_user.json'))
+    end
+
+    it 'should request the correct resource' do
+      Tumblife.info_user
+      stub_get('/v2/user/info').
+        should have_been_made
+    end
+
+    it 'should return the same results as a client' do
+      Tumblife.info_user.should == Tumblife::Client.new.info_user
+    end
+  end
+
   describe '.client' do
     it 'should return a Tumblife::Client' do
       Tumblife.client.should be_a Tumblife::Client
