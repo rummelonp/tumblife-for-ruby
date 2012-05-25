@@ -3,36 +3,36 @@
 module Tumblife
   class Client
     module User
+      def info
+        get('/v2/user/info')
+      end
+
       def dashboard(options = {})
-        get("/v2/user/dashboard", options)
+        get('/v2/user/dashboard', options)
       end
 
-      def likes(options = {})
-        get("/v2/user/likes", options)
+      def likes(offset = 0, limit = 20)
+        get('/v2/user/likes', :offset => offset, :limit => limit)
       end
 
-      def like(options = {})
-        post("/v2/user/like", options)
+      def following(offset = 0, limit = 20)
+        get('/v2/user/following', :offset => offset, :limit => limit)
       end
 
-      def unlike(options = {})
-        post("/v2/user/unlike", options)
+      def like(id, reblog_key)
+        post('/v2/user/like', :id => id, :reblog_key => reblog_key)
       end
 
-      def following(options = {})
-        get("/v2/user/following", options)
+      def unlike(id, reblog_key)
+        post('/v2/user/unlike', :id => id, :reblog_key => reblog_key)
       end
 
-      def follow(options = {})
-        post("/v2/user/follow", options)
+      def follow(url)
+        post('/v2/user/follow', :url => url)
       end
 
-      def unfollow(options = {})
-        post("/v2/user/unfollow", options)
-      end
-
-      def info_user(options = {})
-        get("/v2/user/info", options)
+      def unfollow(url)
+        post('/v2/user/unfollow', :url => url)
       end
     end
   end

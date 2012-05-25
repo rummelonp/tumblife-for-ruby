@@ -11,20 +11,20 @@ describe Tumblife::Client do
     }.client
   end
 
-  describe '.info' do
+  describe '.blog_info' do
     before do
       stub_get("/v2/blog/#{blog}/info").
         with(:query => {:api_key => api_key}).
-        to_return(:body => fixture('info.json'))
+        to_return(:body => fixture('blog_info.json'))
     end
     it 'should request the correct resource' do
-      client.info(blog)
+      client.blog_info(blog)
       a_get("/v2/blog/#{blog}/info").
         with(:query => {:api_key => api_key}).
         should have_been_made
     end
     it 'should return blog info' do
-      info = client.info(blog)
+      info = client.blog_info(blog)
       info.blog.name == 'mmtki'
     end
   end
@@ -32,11 +32,13 @@ describe Tumblife::Client do
   describe '.avatar' do
     before do
       stub_get("/v2/blog/#{blog}/avatar").
+        with(:query => {:size => 64}).
         to_return(:body => fixture('avatar.json'))
     end
     it 'should request the correct resource' do
       client.avatar(blog)
       a_get("/v2/blog/#{blog}/avatar").
+        with(:query => {:size => 64}).
         should have_been_made
     end
     it 'should return blog avatar' do
@@ -232,42 +234,42 @@ describe Tumblife::Client do
     end
   end
 
-  describe '.edit_post' do
+  describe '.edit' do
     before do
       stub_post("/v2/blog/#{blog}/post/edit").
         with(:body => {:id => '123456789', :type => 'text', :title => 'new title', :body => 'new text'}).
         to_return(:body => fixture('post.json'))
     end
     it 'should request the correct resource' do
-      client.edit_post(blog, :id => 123456789, :type => 'text', :title => 'new title', :body => 'new text')
+      client.edit(blog, 123456789, :type => 'text', :title => 'new title', :body => 'new text')
       a_post("/v2/blog/#{blog}/post/edit").
         with(:body => {:id => '123456789', :type => 'text', :title => 'new title', :body => 'new text'}).
         should have_been_made
     end
   end
 
-  describe '.reblog_post' do
+  describe '.reblog' do
     before do
       stub_post("/v2/blog/#{blog}/post/reblog").
         with(:body => {:id => '123456789', :reblog_key => 'abcdef', :comment => 'comment'}).
         to_return(:body => fixture('post.json'))
     end
     it 'should request the correct resource' do
-      client.reblog_post(blog, :id => 123456789, :reblog_key => 'abcdef', :comment => 'comment')
+      client.reblog(blog, 123456789, 'abcdef', 'comment')
       a_post("/v2/blog/#{blog}/post/reblog").
         with(:body => {:id => '123456789', :reblog_key => 'abcdef', :comment => 'comment'}).
         should have_been_made
     end
   end
 
-  describe '.reblog_post' do
+  describe '.delete' do
     before do
       stub_post("/v2/blog/#{blog}/post/delete").
         with(:body => {:id => '123456789'}).
         to_return(:body => fixture('post.json'))
     end
     it 'should request the correct resource' do
-      client.delete_post(blog, :id => 123456789)
+      client.delete(blog, 123456789)
       a_post("/v2/blog/#{blog}/post/delete").
         with(:body => {:id => '123456789'}).
         should have_been_made

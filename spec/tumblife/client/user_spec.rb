@@ -5,6 +5,23 @@ require 'spec_helper'
 describe Tumblife::Client do
   let(:client) { Tumblife.client }
 
+  describe '.info' do
+    before do
+      stub_get('/v2/user/info').
+        to_return(:body => fixture('info.json'))
+    end
+    it 'should request the correct resource' do
+      client.info
+      a_get('/v2/user/info').
+        should have_been_made
+    end
+    it 'should return user info' do
+      info = client.info
+      info.user.name.should == 'mmtki'
+      info.user.blogs.should be_a Array
+    end
+  end
+
   describe '.dashboard' do
     before do
       stub_get('/v2/user/dashboard').
@@ -26,12 +43,34 @@ describe Tumblife::Client do
   describe '.likes' do
     before do
       stub_get('/v2/user/likes').
+        with(:query => {:offset => '0', :limit => '20'}).
         to_return(:body => fixture('likes.json'))
     end
     it 'should request the correct resource' do
       client.likes
       a_get('/v2/user/likes').
+        with(:query => {:offset => '0', :limit => '20'}).
         should have_been_made
+    end
+  end
+
+  describe '.following' do
+    before do
+      stub_get('/v2/user/following').
+        with(:query => {:offset => '0', :limit => '20'}).
+        to_return(:body => fixture('following.json'))
+    end
+    it 'should request the correct resource' do
+      client.following
+      a_get('/v2/user/following').
+        with(:query => {:offset => '0', :limit => '20'}).
+        should have_been_made
+    end
+    it 'should return following blogs' do
+      following = client.following
+      following.blogs.should be_a Array
+      following.blogs.size.should == following.total_blogs
+      following.blogs.first.blog_name == 'mitukiii'
     end
   end
 
@@ -42,7 +81,7 @@ describe Tumblife::Client do
         to_return(:body => fixture('like.json'))
     end
     it 'should request the correct resource' do
-      client.like(:id => 123456789, :reblog_key => 'abcdef')
+      client.like(123456789, 'abcdef')
       a_post('/v2/user/like').
         with(:body => {:id => '123456789', :reblog_key => 'abcdef'}).
         should have_been_made
@@ -56,28 +95,10 @@ describe Tumblife::Client do
         to_return(:body => fixture('unlike.json'))
     end
     it 'should request the correct resource' do
-      client.unlike(:id => 123456789, :reblog_key => 'abcdef')
+      client.unlike(123456789, 'abcdef')
       a_post('/v2/user/unlike').
         with(:body => {:id => '123456789', :reblog_key => 'abcdef'}).
         should have_been_made
-    end
-  end
-
-  describe '.following' do
-    before do
-      stub_get('/v2/user/following').
-        to_return(:body => fixture('following.json'))
-    end
-    it 'should request the correct resource' do
-      client.following
-      a_get('/v2/user/following').
-        should have_been_made
-    end
-    it 'should return following blogs' do
-      following = client.following
-      following.blogs.should be_a Array
-      following.blogs.size.should == following.total_blogs
-      following.blogs.first.blog_name == 'mitukiii'
     end
   end
 
@@ -88,7 +109,7 @@ describe Tumblife::Client do
         to_return(:body => fixture('follow.json'))
     end
     it 'should request the correct resource' do
-      client.follow(:url => 'mitukiii.tumblr.com')
+      client.follow('mitukiii.tumblr.com')
       a_post('/v2/user/follow').
         with(:body => {:url => 'mitukiii.tumblr.com'}).
         should have_been_made
@@ -102,27 +123,10 @@ describe Tumblife::Client do
         to_return(:body => fixture('unfollow.json'))
     end
     it 'should request the correct resource' do
-      client.unfollow(:url => 'mitukiii.tumblr.com')
+      client.unfollow('mitukiii.tumblr.com')
       a_post('/v2/user/unfollow').
         with(:body => {:url => 'mitukiii.tumblr.com'}).
         should have_been_made
-    end
-  end
-
-  describe '.info_user' do
-    before do
-      stub_get('/v2/user/info').
-        to_return(:body => fixture('info_user.json'))
-    end
-    it 'should request the correct resource' do
-      client.info_user
-      a_get('/v2/user/info').
-        should have_been_made
-    end
-    it 'should return user info' do
-      info = client.info_user
-      info.user.name.should == 'mmtki'
-      info.user.blogs.should be_a Array
     end
   end
 end

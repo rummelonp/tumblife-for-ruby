@@ -10,17 +10,17 @@ describe Tumblife do
   context 'when delegating to a client' do
     before do
       stub_get('/v2/user/info').
-        to_return(:body => fixture('info_user.json'))
+        to_return(:body => fixture('info.json'))
     end
 
     it 'should request the correct resource' do
-      Tumblife.info_user
+      Tumblife.info
       stub_get('/v2/user/info').
         should have_been_made
     end
 
     it 'should return the same results as a client' do
-      Tumblife.info_user.should == Tumblife::Client.new.info_user
+      Tumblife.info.should == Tumblife::Client.new.info
     end
   end
 

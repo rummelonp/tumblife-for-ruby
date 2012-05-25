@@ -3,13 +3,12 @@
 module Tumblife
   class Client
     module Blog
-      def info(blog, options = {})
-        options = {:api_key => consumer_key}.merge(options)
-        get("/v2/blog/#{blog}/info", options)
+      def blog_info(blog)
+        get("/v2/blog/#{blog}/info", :api_key => consumer_key)
       end
 
-      def avatar(blog, options = {})
-        get("/v2/blog/#{blog}/avatar", options)
+      def avatar(blog, size = 64)
+        get("/v2/blog/#{blog}/avatar", :size => size)
       end
 
       def followers(blog, options = {})
@@ -17,36 +16,38 @@ module Tumblife
       end
 
       def posts(blog, options = {})
-        options = {:api_key => consumer_key}.merge(options)
+        options[:api_key] = consumer_key
         get("/v2/blog/#{blog}/posts", options)
       end
 
-      def queue(blog, options = {})
-        get("/v2/blog/#{blog}/posts/queue", options)
+      def queue(blog)
+        get("/v2/blog/#{blog}/posts/queue")
       end
 
-      def draft(blog, options = {})
-        get("/v2/blog/#{blog}/posts/draft", options)
+      def draft(blog)
+        get("/v2/blog/#{blog}/posts/draft")
       end
 
-      def submission(blog, options = {})
-        get("/v2/blog/#{blog}/posts/submission", options)
+      def submission(blog)
+        get("/v2/blog/#{blog}/posts/submission")
       end
 
       def create_post(blog, options = {})
         post("/v2/blog/#{blog}/post", options)
       end
 
-      def edit_post(blog, options = {})
-        post("/v2/blog/#{blog}/post/edit", options)
+      def edit(blog, id, options = {})
+        post("/v2/blog/#{blog}/post/edit", options.merge(:id => id))
       end
 
-      def reblog_post(blog, options = {})
+      def reblog(blog, id, reblog_key, comment = nil)
+        options = {:id => id, :reblog_key => reblog_key}
+        options[:comment] = comment if comment
         post("/v2/blog/#{blog}/post/reblog", options)
       end
 
-      def delete_post(blog, options = {})
-        post("/v2/blog/#{blog}/post/delete", options)
+      def delete(blog, id)
+        post("/v2/blog/#{blog}/post/delete", :id => id)
       end
     end
   end

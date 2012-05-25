@@ -68,11 +68,11 @@ describe Tumblife::Client do
     stub_get('/v2/user/info').
       to_return(:body => fixture('mmtki.json'))
     client1 = Tumblife.client
-    client1.info_user.user.name.should == 'mmtki'
+    client1.info.user.name.should == 'mmtki'
 
     stub_get('/v2/user/info').
       to_return(:body => fixture('mitukiii.json'))
-    client1 = Tumblife.client
-    client1.info_user.user.name.should == 'mitukiii'
+    client2 = Tumblife.client
+    client2.info.user.name.should == 'mitukiii'
   end
 end

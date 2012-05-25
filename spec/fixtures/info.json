@@ -4,14 +4,31 @@
     "msg": "OK"
   },
   "response": {
-    "blog": {
-      "title": "Blue Planet",
-      "posts": 6505,
+    "user": {
       "name": "mmtki",
-      "url": "http://mmtki.tumblr.com/",
-      "updated": 1337455819,
-      "description": "",
-      "ask": false
+      "likes": 0,
+      "following": 99,
+      "default_post_format": "html",
+      "blogs": [
+        {
+          "name": "mmtki",
+          "url": "http://mmtki.tumblr.com/",
+          "followers": 98,
+          "primary": true,
+          "title": "Blue Planet",
+          "description": "",
+          "admin": true,
+          "updated": 1337454025,
+          "posts": 6505,
+          "drafts": 0,
+          "messages": 0,
+          "queue": 0,
+          "ask": false,
+          "tweet": "N",
+          "facebook_opengraph_enabled": "N",
+          "type": "public"
+        }
+      ]
     }
   }
 }
