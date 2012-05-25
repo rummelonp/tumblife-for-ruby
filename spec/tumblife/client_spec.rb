@@ -63,4 +63,16 @@ describe Tumblife::Client do
       end
     end
   end
+
+  it 'should not cache the user name across clients' do
+    stub_get('/v2/user/info').
+      to_return(:body => fixture('mmtki.json'))
+    client1 = Tumblife.client
+    client1.info_user.user.name.should == 'mmtki'
+
+    stub_get('/v2/user/info').
+      to_return(:body => fixture('mitukiii.json'))
+    client1 = Tumblife.client
+    client1.info_user.user.name.should == 'mitukiii'
+  end
 end

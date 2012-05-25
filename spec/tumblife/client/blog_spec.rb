@@ -3,80 +3,274 @@
 require 'spec_helper'
 
 describe Tumblife::Client do
-  let(:client) { Tumblife.client }
-
-  it 'should respond to info' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/info', :api_key => @api_key)
-    client.info 'mitukiii.tumblr.com'
+  let(:api_key) { 'api_key' }
+    let(:blog) { 'mmtki.tumblr.com' }
+  let(:client) do
+    Tumblife.configure {|config|
+      config.consumer_key = api_key
+    }.client
   end
 
-  it 'should respond to avatar' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/avatar', {})
-    client.avatar 'mitukiii.tumblr.com'
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/avatar', :size => 512)
-    client.avatar 'mitukiii.tumblr.com', :size => 512
+  describe '.info' do
+    before do
+      stub_get("/v2/blog/#{blog}/info").
+        with(:query => {:api_key => api_key}).
+        to_return(:body => fixture('info.json'))
+    end
+    it 'should request the correct resource' do
+      client.info(blog)
+      a_get("/v2/blog/#{blog}/info").
+        with(:query => {:api_key => api_key}).
+        should have_been_made
+    end
+    it 'should return blog info' do
+      info = client.info(blog)
+      info.blog.name == 'mmtki'
+    end
   end
 
-  it 'should respond to followers' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/followers', {})
-    client.followers 'mitukiii.tumblr.com'
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/followers', :limit => 10)
-    client.followers 'mitukiii.tumblr.com', :limit => 10
+  describe '.avatar' do
+    before do
+      stub_get("/v2/blog/#{blog}/avatar").
+        to_return(:body => fixture('avatar.json'))
+    end
+    it 'should request the correct resource' do
+      client.avatar(blog)
+      a_get("/v2/blog/#{blog}/avatar").
+        should have_been_made
+    end
+    it 'should return blog avatar' do
+      avatar = client.avatar(blog)
+      avatar.avatar_url == 'http://25.media.tumblr.com/avatar_0ade4b983345_64.png'
+    end
   end
 
-  it 'should respond to posts' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/posts', :api_key => @api_key)
-    client.posts 'mitukiii.tumblr.com'
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/posts', :api_key => @api_key, :type => :photo)
-    client.posts 'mitukiii.tumblr.com', :type => :photo
+  describe '.followers' do
+    before do
+      stub_get("/v2/blog/#{blog}/followers").
+        to_return(:body => fixture('followers.json'))
+    end
+    it 'should request the correct resource' do
+      client.followers(blog)
+      a_get("/v2/blog/#{blog}/followers").
+        should have_been_made
+    end
+    it 'should return blog followers' do
+      followers = client.followers(blog)
+      followers.blogs.should be_a Array
+      followers.blogs.size.should == followers.total_blogs
+      followers.blogs.first.blog_name == 'mitukiii'
+    end
   end
 
-  it 'should respond to queue' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/posts/queue', {})
-    client.queue 'mitukiii.tumblr.com'
+  describe '.posts' do
+    before do
+      stub_get("/v2/blog/#{blog}/posts").
+        with(:query => {:api_key => api_key}).
+        to_return(:body => fixture('posts.json'))
+    end
+    it 'should request the correct resource' do
+      client.posts(blog)
+      a_get("/v2/blog/#{blog}/posts").
+        with(:query => {:api_key => api_key}).
+        should have_been_made
+    end
+    it 'should return blog posts' do
+      posts = client.posts(blog)
+      posts.blog.name.should == 'mmtki'
+      posts.posts.should be_a Array
+      posts.posts.size.should == 20
+      posts.posts.first.blog_name == 'mmtki'
+    end
   end
 
-  it 'should respond to draft' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/posts/draft', {})
-    client.draft 'mitukiii.tumblr.com'
+  describe '.queue' do
+    before do
+      stub_get("/v2/blog/#{blog}/posts/queue").
+        to_return(:body => fixture('queue.json'))
+    end
+    it 'should request the correct resource' do
+      client.queue(blog)
+      a_get("/v2/blog/#{blog}/posts/queue").
+        should have_been_made
+    end
+    it 'should return blog queue' do
+      queue = client.queue(blog)
+      queue.posts.should be_a Array
+    end
   end
 
-  it 'should respond to submission' do
-    client.should_receive(:get).with('/v2/blog/mitukiii.tumblr.com/posts/submission', {})
-    client.submission 'mitukiii.tumblr.com'
+  describe '.draft' do
+    before do
+      stub_get("/v2/blog/#{blog}/posts/draft").
+        to_return(:body => fixture('draft.json'))
+    end
+    it 'should request the correct resource' do
+      client.draft(blog)
+      a_get("/v2/blog/#{blog}/posts/draft").
+        should have_been_made
+    end
+    it 'should return blog draft' do
+      draft = client.draft(blog)
+      draft.posts.should be_a Array
+    end
   end
 
-  it 'should respond to create_post' do
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :text, :body => 'text')
-    client.create_post 'mitukiii.tumblr.com', :type => :text, :body => 'text'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :photo, :source => 'http://example.com/photo.png')
-    client.create_post 'mitukiii.tumblr.com', :type => :photo, :source => 'http://example.com/photo.png'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :quote, :quote => 'quote')
-    client.create_post 'mitukiii.tumblr.com', :type => :quote, :quote => 'quote'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :link, :url => 'http://example.com/')
-    client.create_post 'mitukiii.tumblr.com', :type => :link, :url => 'http://example.com/'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :chat, :conversation => 'conversation')
-    client.create_post 'mitukiii.tumblr.com', :type => :chat, :conversation => 'conversation'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :audio, :external_url => 'http://example.com/audio.mp3')
-    client.create_post 'mitukiii.tumblr.com', :type => :audio, :external_url => 'http://example.com/audio.mp3'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post', :type => :video, :embed => '<embed>code</embed>')
-    client.create_post 'mitukiii.tumblr.com', :type => :video, :embed => '<embed>code</embed>'
+  describe '.submission' do
+    before do
+      stub_get("/v2/blog/#{blog}/posts/submission").
+        to_return(:body => fixture('submission.json'))
+    end
+    it 'should request the correct resource' do
+      client.submission(blog)
+      a_get("/v2/blog/#{blog}/posts/submission").
+        should have_been_made
+    end
+    it 'should return blog submission' do
+      submission = client.submission(blog)
+      submission.posts.should be_a Array
+    end
   end
 
-  it 'should respond to edit_post' do
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post/edit', :id => 123456789, :type => :text, :body => 'new text')
-    client.edit_post 'mitukiii.tumblr.com', :id => 123456789, :type => :text, :body => 'new text'
+  describe '.create_post' do
+    context :text do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'text', :title => 'title', :body => 'text'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :text, :title => 'title', :body => 'text')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'text', :title => 'title', :body => 'text'}).
+          should have_been_made
+      end
+    end
+
+    context :photo do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'photo', :caption => 'caption', :source => 'http://example.com/photo.png'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :photo, :caption => 'caption', :source => 'http://example.com/photo.png')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'photo', :caption => 'caption', :source => 'http://example.com/photo.png'}).
+          should have_been_made
+      end
+    end
+
+    context :quote do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'quote', :quote => 'quote', :source => 'http://example.com/'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :quote, :quote => 'quote', :source => 'http://example.com/')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'quote', :quote => 'quote', :source => 'http://example.com/'}).
+          should have_been_made
+      end
+    end
+
+    context :link do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'link', :title => 'title', :link => 'http://example.com/'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :link, :title => 'title', :link => 'http://example.com/')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'link',  :title => 'title', :link => 'http://example.com/'}).
+          should have_been_made
+      end
+    end
+
+    context :chat do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'chat', :title => 'title', :conversation => 'conversation'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :chat, :title => 'title', :conversation => 'conversation')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'chat',  :title => 'title', :conversation => 'conversation'}).
+          should have_been_made
+      end
+    end
+
+    context :audio do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'audio', :caption => 'caption', :external_url => 'http://example.com/audio.mp3'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :audio, :caption => 'caption', :external_url => 'http://example.com/audio.mp3')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'audio',  :caption => 'caption', :external_url => 'http://example.com/audio.mp3'}).
+          should have_been_made
+      end
+    end
+
+    context :video do
+      before do
+        stub_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'video', :caption => 'caption', :embed => 'http://example.com/video.mp4'}).
+          to_return(:body => fixture('post.json'))
+      end
+      it 'should request the correct resource' do
+        client.create_post(blog, :type => :video, :caption => 'caption', :embed => 'http://example.com/video.mp4')
+        a_post("/v2/blog/#{blog}/post").
+          with(:body => {:type => 'video',  :caption => 'caption', :embed => 'http://example.com/video.mp4'}).
+          should have_been_made
+      end
+    end
   end
 
-  it 'should respond to reblog' do
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post/reblog', :id => 123456789, :reblog_key => 'abcdefg')
-    client.reblog_post 'mitukiii.tumblr.com', :id => 123456789, :reblog_key => 'abcdefg'
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post/reblog', :id => 123456789, :reblog_key => 'abcdefg', :comment => 'comment')
-    client.reblog_post 'mitukiii.tumblr.com', :id => 123456789, :reblog_key => 'abcdefg', :comment => 'comment'
+  describe '.edit_post' do
+    before do
+      stub_post("/v2/blog/#{blog}/post/edit").
+        with(:body => {:id => '123456789', :type => 'text', :title => 'new title', :body => 'new text'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.edit_post(blog, :id => 123456789, :type => 'text', :title => 'new title', :body => 'new text')
+      a_post("/v2/blog/#{blog}/post/edit").
+        with(:body => {:id => '123456789', :type => 'text', :title => 'new title', :body => 'new text'}).
+        should have_been_made
+    end
   end
 
-  it 'should respond to delete' do
-    client.should_receive(:post).with('/v2/blog/mitukiii.tumblr.com/post/delete', :id => 123456789)
-    client.delete_post 'mitukiii.tumblr.com', :id => 123456789
+  describe '.reblog_post' do
+    before do
+      stub_post("/v2/blog/#{blog}/post/reblog").
+        with(:body => {:id => '123456789', :reblog_key => 'abcdef', :comment => 'comment'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.reblog_post(blog, :id => 123456789, :reblog_key => 'abcdef', :comment => 'comment')
+      a_post("/v2/blog/#{blog}/post/reblog").
+        with(:body => {:id => '123456789', :reblog_key => 'abcdef', :comment => 'comment'}).
+        should have_been_made
+    end
+  end
+
+  describe '.reblog_post' do
+    before do
+      stub_post("/v2/blog/#{blog}/post/delete").
+        with(:body => {:id => '123456789'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.delete_post(blog, :id => 123456789)
+      a_post("/v2/blog/#{blog}/post/delete").
+        with(:body => {:id => '123456789'}).
+        should have_been_made
+    end
   end
 end
