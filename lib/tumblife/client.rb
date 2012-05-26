@@ -3,6 +3,7 @@
 require 'tumblife/connection'
 require 'tumblife/request'
 require 'tumblife/client/blog'
+require 'tumblife/client/post'
 require 'tumblife/client/user'
 
 module Tumblife
@@ -11,6 +12,7 @@ module Tumblife
     include Connection
     include Request
     include Blog
+    include Post
     include User
 
     # @private
