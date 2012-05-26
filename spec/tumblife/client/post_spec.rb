@@ -6,103 +6,101 @@ describe Tumblife::Client do
   let(:blog) { 'mmtki.tumblr.com' }
   let(:client) { Tumblife.client }
 
-  describe '.create_post' do
-    context :text do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'text', :title => 'title', :body => 'text'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :text, :title => 'title', :body => 'text')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'text', :title => 'title', :body => 'text'}).
-          should have_been_made
-      end
+  describe '.text' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'text', :title => 'title', :body => 'text'}).
+        to_return(:body => fixture('post.json'))
     end
-
-    context :photo do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'photo', :caption => 'caption', :source => 'http://example.com/photo.png'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :photo, :caption => 'caption', :source => 'http://example.com/photo.png')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'photo', :caption => 'caption', :source => 'http://example.com/photo.png'}).
-          should have_been_made
-      end
+    it 'should request the correct resource' do
+      client.text(blog, :title => 'title', :body => 'text')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'text', :title => 'title', :body => 'text'}).
+        should have_been_made
     end
+  end
 
-    context :quote do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'quote', :quote => 'quote', :source => 'http://example.com/'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :quote, :quote => 'quote', :source => 'http://example.com/')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'quote', :quote => 'quote', :source => 'http://example.com/'}).
-          should have_been_made
-      end
+  describe '.photo' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'photo', :caption => 'caption', :source => 'http://example.com/photo.png'}).
+        to_return(:body => fixture('post.json'))
     end
-
-    context :link do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'link', :title => 'title', :link => 'http://example.com/'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :link, :title => 'title', :link => 'http://example.com/')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'link',  :title => 'title', :link => 'http://example.com/'}).
-          should have_been_made
-      end
+    it 'should request the correct resource' do
+      client.photo(blog, :caption => 'caption', :source => 'http://example.com/photo.png')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'photo', :caption => 'caption', :source => 'http://example.com/photo.png'}).
+        should have_been_made
     end
+  end
 
-    context :chat do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'chat', :title => 'title', :conversation => 'conversation'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :chat, :title => 'title', :conversation => 'conversation')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'chat',  :title => 'title', :conversation => 'conversation'}).
-          should have_been_made
-      end
+  describe '.quote' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'quote', :quote => 'quote', :source => 'http://example.com/'}).
+        to_return(:body => fixture('post.json'))
     end
-
-    context :audio do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'audio', :caption => 'caption', :external_url => 'http://example.com/audio.mp3'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :audio, :caption => 'caption', :external_url => 'http://example.com/audio.mp3')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'audio',  :caption => 'caption', :external_url => 'http://example.com/audio.mp3'}).
-          should have_been_made
-      end
+    it 'should request the correct resource' do
+      client.quote(blog, :quote => 'quote', :source => 'http://example.com/')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'quote', :quote => 'quote', :source => 'http://example.com/'}).
+        should have_been_made
     end
+  end
 
-    context :video do
-      before do
-        stub_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'video', :caption => 'caption', :embed => 'http://example.com/video.mp4'}).
-          to_return(:body => fixture('post.json'))
-      end
-      it 'should request the correct resource' do
-        client.create_post(blog, :type => :video, :caption => 'caption', :embed => 'http://example.com/video.mp4')
-        a_post("/v2/blog/#{blog}/post").
-          with(:body => {:type => 'video',  :caption => 'caption', :embed => 'http://example.com/video.mp4'}).
-          should have_been_made
-      end
+  describe '.link' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'link', :title => 'title', :link => 'http://example.com/'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.link(blog, :title => 'title', :link => 'http://example.com/')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'link',  :title => 'title', :link => 'http://example.com/'}).
+        should have_been_made
+    end
+  end
+
+  describe '.chat' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'chat', :title => 'title', :conversation => 'conversation'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.chat(blog, :title => 'title', :conversation => 'conversation')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'chat',  :title => 'title', :conversation => 'conversation'}).
+        should have_been_made
+    end
+  end
+
+  describe '.audio' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'audio', :caption => 'caption', :external_url => 'http://example.com/audio.mp3'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.audio(blog, :caption => 'caption', :external_url => 'http://example.com/audio.mp3')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'audio',  :caption => 'caption', :external_url => 'http://example.com/audio.mp3'}).
+        should have_been_made
+    end
+  end
+
+  describe '.video' do
+    before do
+      stub_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'video', :caption => 'caption', :embed => 'http://example.com/video.mp4'}).
+        to_return(:body => fixture('post.json'))
+    end
+    it 'should request the correct resource' do
+      client.video(blog, :caption => 'caption', :embed => 'http://example.com/video.mp4')
+      a_post("/v2/blog/#{blog}/post").
+        with(:body => {:type => 'video',  :caption => 'caption', :embed => 'http://example.com/video.mp4'}).
+        should have_been_made
     end
   end
 
