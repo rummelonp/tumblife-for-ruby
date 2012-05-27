@@ -23,7 +23,7 @@ client = Tumblife.client
 avatar = client.avatar('mitukiii.tumblr.com')
 avatar.avatar_url # => http://24.media.tumblr.com/avatar_87fdfd3ea0e3_64.png
     
-info = client.info('mitukiii.tumblr.com')
+info = client.blog_info('mitukiii.tumblr.com')
 info.blog.name # => mitukiii
 info.blog.url # => http://mitukiii.tumblr.com/
     
@@ -31,6 +31,9 @@ dashboard = client.dashboard
 dashboard.posts.each do |post|
   # ... do something
 end
+
+client.text('mitukiii.tumblr.com', :body => 'Hello, Tumblr!')
+client.photo('mitukiii.tumblr.com', :data => Faraday::UploadIO.new('/path/to/image.png', 'image/png'))
 ```
 
 ## TODO
