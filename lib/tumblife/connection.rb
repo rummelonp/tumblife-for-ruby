@@ -26,6 +26,7 @@ module Tumblife
         connection.response :mashify
         connection.response :json
         connection.request :oauth, credentials
+        connection.request :multipart
         connection.request :url_encoded
         connection.adapter adapter
       end
