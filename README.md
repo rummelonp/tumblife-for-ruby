@@ -38,7 +38,6 @@ client.photo('mitukiii.tumblr.com', :data => Faraday::UploadIO.new('/path/to/ima
 
 ## TODO
 * better post support
-* better test
 
 ## Contributing
 1. Fork it
