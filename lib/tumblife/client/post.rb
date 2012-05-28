@@ -46,7 +46,7 @@ module Tumblife
       # @option options [String] :caption (nil) The user-supplied caption, HTML allowed
       # @option options [String] :link (nil) The "click-through URL" for the photo
       # @option options [String] :source (nil) The photo source URL
-      # @option options [String, Array] :data (nil) One or more image files (submit multiple times to create a slide show)
+      # @option options [Faraday::UploadIO] :data (nil) One or more image files (submit multiple times to create a slide show)
       # @return [Hashie::Mash]
       def photo(blog, options = {})
         create_post(blog, options.merge(:type => :photo))
@@ -104,7 +104,7 @@ module Tumblife
       # @param options [Hash] An optional options hash
       # @option options [String] :caption (nil) The user-supplied caption
       # @option options [String] :external_url (nil) The URL of the site that hosts the audio file (not tumblr)
-      # @option options [String] :data (nil) An audio file
+      # @option options [Faraday::UploadIO] :data (nil) An audio file
       # @return [Hashie::Mash]
       def audio(blog, options = {})
         create_post(blog, options.merge(:type => :audio))
@@ -119,7 +119,7 @@ module Tumblife
       # @param options [Hash] An optional options hash
       # @option options [String] :caption (nil) The user-supplied caption
       # @option options [String] :embed (nil) HTML embed code for the video
-      # @option options [String] :data (nil) A video file
+      # @option options [Faraday::UploadIO] :data (nil) A video file
       # @return [Hashie::Mash]
       def video(blog, options = {})
         create_post(blog, options.merge(:type => :video))
