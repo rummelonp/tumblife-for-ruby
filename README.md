@@ -1,5 +1,5 @@
-# Tumblife [![Build Status](https://secure.travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
-[travis]: http://travis-ci.org/mitukiii/tumblife-for-buy
+# Tumblife [![Build Status](https://travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
+[travis]: https://travis-ci.org/mitukiii/tumblife-for-ruby
 [gemnasium]: https://gemnasium.com/mitukiii/tumblife-for-ruby
 
 A Ruby wrapper for the Tumblr API v2.
