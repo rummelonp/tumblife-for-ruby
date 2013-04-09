@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 require 'faraday'
-require 'multi_json'
+require 'yajl'
 
 module Tumblife
   module Response
@@ -14,7 +14,7 @@ module Tumblife
         if body.nil?
           nil
         else
-          MultiJson.load(body)
+          Yajl.load(body)
         end
       end
     end
