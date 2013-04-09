@@ -51,6 +51,6 @@ client.photo('mitukiii.tumblr.com', :data => Faraday::UploadIO.new('/path/to/ima
 5. Create new Pull Request
 
 ## Copyright
-Copyright (c) 2011 [Kazuya Takeshima](mailto:mail@mitukiii.jp). See [LICENSE][license] for details.
+Copyright (c) 2012 [Kazuya Takeshima](mailto:mail@mitukiii.jp). See [LICENSE][license] for details.
 
 [license]: LICENSE.md
