@@ -1,4 +1,8 @@
-# Tumblife [![Build Status](https://travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
+# Tumblife
+
+[![Build Status](https://travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
+
 [travis]: https://travis-ci.org/mitukiii/tumblife-for-ruby
 [gemnasium]: https://gemnasium.com/mitukiii/tumblife-for-ruby
 
@@ -47,6 +51,6 @@ client.photo('mitukiii.tumblr.com', :data => Faraday::UploadIO.new('/path/to/ima
 5. Create new Pull Request
 
 ## Copyright
-Copyright (c) 2011 [Kazuya Takeshima](mailto:mail@mitukiii.jp). See [LICENSE][] for details.
+Copyright (c) 2011 [Kazuya Takeshima](mailto:mail@mitukiii.jp). See [LICENSE][license] for details.
 
-[license]: https://github.com/mitukiii/tumblife-for-ruby/blob/master/LICENSE.md
+[license]: LICENSE.md
