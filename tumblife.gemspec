@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'faraday_middleware', '~> 0.9.0'
   s.add_runtime_dependency 'yajl-ruby', '~> 1.1.0'
   s.add_runtime_dependency 'simple_oauth', '~> 0.2.0'
-  s.add_runtime_dependency 'hashie', '~> 1.2.0'
+  s.add_runtime_dependency 'hashie', '~> 2.0.3'
   s.add_development_dependency 'json'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'guard-rspec'
