@@ -5,7 +5,7 @@ require 'faraday'
 module Tumblife
   # Defines constants and methods related to configuration
   module Configuration
-    # An array of keys in the options hash when configuring a {Tumblife::API}
+    # An array of keys in the options hash when configuring a {Tumblife::Client}
     VALID_OPTIONS_KEYS = [
       :adapter,
       :consumer_key,

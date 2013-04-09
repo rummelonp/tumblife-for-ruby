@@ -17,11 +17,11 @@ module Tumblife
   class NotFound < Error
   end
 
-  # Raised when Instagram returns the HTTP status code 5xx
+  # Raised when Tumblr returns the HTTP status code 5xx
   class InternalServerError < Error
   end
 
-  # Raised when Instagram returns the HTTP status code 503
+  # Raised when Tumblr returns the HTTP status code 503
   class ServiceUnavailable < Error
   end
 end
