@@ -11,9 +11,21 @@
 A Ruby wrapper for the Tumblr API v2.
 
 ## Installation
-    gem install tumblife
+
+Add this line to your application's Gemfile:
+
+    gem 'tumblife'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install tumblife
 
 ## Usage
+
 ```ruby
 require 'tumblife'
 
@@ -43,16 +55,19 @@ client.photo('mitukiii.tumblr.com', :data => Faraday::UploadIO.new('/path/to/ima
 ```
 
 ## TODO
+
 * better post support
 
 ## Contributing
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
 ## Copyright
+
 Copyright (c) 2012 [Kazuya Takeshima](mailto:mail@mitukiii.jp). See [LICENSE][license] for details.
 
 [license]: LICENSE.md
