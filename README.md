@@ -1,9 +1,11 @@
 # Tumblife
 
 [![Build Status](https://travis-ci.org/mitukiii/tumblife-for-ruby.png?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/mitukiii/tumblife-for-ruby.png)][codeclimate]
 [![Dependency Status](https://gemnasium.com/mitukiii/tumblife-for-ruby.png?travis)][gemnasium]
 
 [travis]: https://travis-ci.org/mitukiii/tumblife-for-ruby
+[codeclimate]: https://codeclimate.com/github/mitukiii/tumblife-for-ruby
 [gemnasium]: https://gemnasium.com/mitukiii/tumblife-for-ruby
 
 A Ruby wrapper for the Tumblr API v2.
