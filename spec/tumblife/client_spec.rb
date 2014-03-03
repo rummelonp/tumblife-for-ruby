@@ -21,7 +21,7 @@ describe Tumblife::Client do
     it 'should inherit module configuration' do
       api = Tumblife::Client.new
       @keys.each do |key|
-        api.send(key).should == key
+        expect(api.send(key)).to eq(key)
       end
     end
 
@@ -43,7 +43,7 @@ describe Tumblife::Client do
         it 'should override module configuration' do
           api = Tumblife::Client.new(@configuration)
           @keys.each do |key|
-            api.send(key).should == @configuration[key]
+            expect(api.send(key)).to eq(@configuration[key])
           end
         end
       end
@@ -55,7 +55,7 @@ describe Tumblife::Client do
             api.send("#{key}=", value)
           end
           @keys.each do |key|
-            api.send(key).should == @configuration[key]
+            expect(api.send(key)).to eq(@configuration[key])
           end
         end
       end
@@ -66,11 +66,11 @@ describe Tumblife::Client do
     stub_get('/v2/user/info').
       to_return(:body => fixture('mmtki.json'))
     client1 = Tumblife.client
-    client1.info.user.name.should == 'mmtki'
+    expect(client1.info.user.name).to eq('mmtki')
 
     stub_get('/v2/user/info').
       to_return(:body => fixture('mitukiii.json'))
     client2 = Tumblife.client
-    client2.info.user.name.should == 'mitukiii'
+    expect(client2.info.user.name).to eq('mitukiii')
   end
 end

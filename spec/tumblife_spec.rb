@@ -13,63 +13,63 @@ describe Tumblife do
 
     it 'should request the correct resource' do
       Tumblife.info
-      stub_get('/v2/user/info').
-        should have_been_made
+      expect(stub_get('/v2/user/info')).
+        to have_been_made
     end
 
     it 'should return the same results as a client' do
-      Tumblife.info.should == Tumblife::Client.new.info
+      expect(Tumblife.info).to eq(Tumblife::Client.new.info)
     end
   end
 
   describe '.client' do
     it 'should return a Tumblife::Client' do
-      Tumblife.client.should be_a Tumblife::Client
+      expect(Tumblife.client).to be_a Tumblife::Client
     end
   end
 
   describe '.respond_to?' do
     it 'should take an optional argument' do
-      Tumblife.respond_to?(:client, true).should be_true
+      expect(Tumblife.respond_to?(:client, true)).to be_true
     end
   end
 
   describe '.adapter' do
     it 'should return the default adapter' do
-      Tumblife.adapter.should == Tumblife::Configuration::DEFAULT_ADAPTER
+      expect(Tumblife.adapter).to eq(Tumblife::Configuration::DEFAULT_ADAPTER)
     end
   end
 
   describe '.adapter=' do
     it 'should set the adapter' do
       Tumblife.adapter = :typhoeus
-      Tumblife.adapter.should == :typhoeus
+      expect(Tumblife.adapter).to eq(:typhoeus)
     end
   end
 
   describe '.endpoint' do
     it 'should return the default endpoint' do
-      Tumblife.endpoint.should == Tumblife::Configuration::DEFAULT_ENDPOINT
+      expect(Tumblife.endpoint).to eq(Tumblife::Configuration::DEFAULT_ENDPOINT)
     end
   end
 
   describe '.endpoint=' do
     it 'should set the endpoint' do
       Tumblife.endpoint = 'https://api.twitter.com/'
-      Tumblife.endpoint.should == 'https://api.twitter.com/'
+      expect(Tumblife.endpoint).to eq('https://api.twitter.com/')
     end
   end
 
   describe '.user_agent' do
     it 'should return the default user agent' do
-      Tumblife.user_agent.should == Tumblife::Configuration::DEFAULT_USER_AGENT
+      expect(Tumblife.user_agent).to eq(Tumblife::Configuration::DEFAULT_USER_AGENT)
     end
   end
 
   describe '.user_agent=' do
     it 'should set the user_agent' do
       Tumblife.endpoint = 'Custom User Agent'
-      Tumblife.endpoint.should == 'Custom User Agent'
+      expect(Tumblife.endpoint).to eq('Custom User Agent')
     end
   end
 
@@ -78,7 +78,7 @@ describe Tumblife do
       it "should set the #{key}" do
         Tumblife.configure do |config|
           config.send("#{key}=", key)
-          Tumblife.send(key).should == key
+          expect(Tumblife.send(key)).to eq(key)
         end
       end
     end
