@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 require 'tumblife/connection'
 require 'tumblife/request'
 require 'tumblife/client/blog'

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 require 'faraday'
 require 'tumblife/response/parse_json'
 require 'tumblife/response/raise_client_error'

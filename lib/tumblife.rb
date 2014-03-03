@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 require 'tumblife/version'
 require 'tumblife/error'
 require 'tumblife/configuration'

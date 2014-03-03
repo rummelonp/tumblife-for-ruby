@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 module Tumblife
   class Client
@@ -94,4 +94,3 @@ module Tumblife
     end
   end
 end
-

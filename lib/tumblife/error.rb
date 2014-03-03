@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 module Tumblife
   # Custom error class for rescuing from all Tumblr errors
   class Error < StandardError
