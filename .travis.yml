@@ -8,3 +8,6 @@ rvm:
   - 1.9.2
   - 1.9.3
   - ruby-head
+notifications:
+  webhooks:
+    - https://idobata.io/hook/f7467f11-26df-4e55-9bf0-47f5275d0c76
